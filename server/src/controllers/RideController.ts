@@ -27,6 +27,10 @@ class RideController {
   async update(req: Request<{}, {}, UpdateRideBodyProps>, res: Response) {
     const { customer_id, origin, destination, distance, duration, driver, value } = req.body;
   }
+
+  async show(req: Request, res: Response) {
+    const { customer_id, driver_id } = req.query;
+  }
 }
 
 export { RideController };
