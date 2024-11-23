@@ -23,3 +23,16 @@ model Driver {
   ratePerKm         Decimal @default(0.00)
   minimumKm         Int
 }
+
+model Trip {
+  id          Int      @id @default(autoincrement())
+  customerId  String
+  origin      String
+  destination String
+  distance    Int
+  duration    String
+  driverId    Int
+  driverName  String
+  value       Decimal  @default(0.00)
+  createdAt   DateTime @default(now())
+}

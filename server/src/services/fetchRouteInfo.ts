@@ -1,14 +1,13 @@
 import dotenv from "dotenv";
-import { AppError } from "../utils/AppError";
 import { api } from "./api";
 
 dotenv.config();
 
 const key = process.env.GOOGLE_MAPS_API_KEY;
 
-export const getTravelDuration = async (origin: string, destination: string) => {
+export const fetchRouteInfo = async (origin: string, destination: string) => {
   if (!key) {
-    throw new AppError("API Key not found");
+    return
   }
 
   try {
@@ -25,6 +24,5 @@ export const getTravelDuration = async (origin: string, destination: string) => 
     return { legs };
   } catch (error: any) {
     console.error(error.response?.data);
-    throw new AppError("Unable to obtain information");
   }
 };

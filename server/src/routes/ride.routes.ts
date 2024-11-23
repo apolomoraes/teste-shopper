@@ -4,8 +4,8 @@ import { RideController } from "../controllers/RideController";
 const rideRoutes = Router();
 const rideController = new RideController();
 
-rideRoutes.post("/estimate", rideController.create);
-rideRoutes.patch("/confirm", rideController.update);
-rideRoutes.get("/:customer_id/:driver_id", rideController.show);
+rideRoutes.post("/estimate", rideController.create.bind(RideController));
+rideRoutes.patch("/confirm", rideController.update.bind(RideController));
+rideRoutes.get("/:customer_id", rideController.show.bind(RideController));
 
 export { rideRoutes };
