@@ -3,7 +3,7 @@ import { api } from "./api";
 
 dotenv.config();
 
-const key = process.env.GOOGLE_MAPS_API_KEY;
+const key = process.env.GOOGLE_API_KEY;
 
 export const fetchRouteInfo = async (origin: string, destination: string) => {
   if (!key) {

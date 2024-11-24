@@ -120,7 +120,7 @@ class RideController {
     }
 
     if (distance < seachForDrive.minimumKm) {
-      return res.status(404).json({
+      return res.status(406).json({
         error_code: "INVALID_DISTANCE",
         error_description: "The distance is invalid for the selected driver",
       });
@@ -158,7 +158,7 @@ class RideController {
       });
 
       if (!driverExists) {
-        return res.status(404).json({
+        return res.status(400).json({
           error_code: "INVALID_DRIVER",
           error_description: "Driver ID is invalid",
         });
