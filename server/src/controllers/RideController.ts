@@ -153,13 +153,6 @@ class RideController {
     if (driver_id) {
       const driverId = parseInt(driver_id as string, 10);
 
-      if (isNaN(driverId)) {
-        return res.status(404).json({
-          error_code: "INVALID_DRIVER",
-          error_description: "Driver ID is invalid",
-        });
-      }
-
       const driverExists = await prisma.driver.findUnique({
         where: { id: driverId },
       });
@@ -171,19 +164,13 @@ class RideController {
         });
       }
     }
+
     const whereClause: any = { customerId: customer_id };
 
     if (driver_id) {
       const driverId = parseInt(driver_id as string, 10);
 
-      if (isNaN(driverId)) {
-        return res.status(404).json({
-          error_code: "INVALID_DRIVER",
-          error_description: "Driver ID is invalid",
-        });
-      }
-
-      whereClause.driverId = driver_id;
+      whereClause.driverId = driverId;
     }
 
     const trips = await prisma.trip.findMany({
@@ -193,13 +180,32 @@ class RideController {
       },
     });
 
-    console.log(trips)
+    if (trips.length === 0) {
+      return res.status(404).json({
+        error_code: "NO_RIDES_FOUND",
+        error_description: "No rides found for this user",
+      });
+    }
 
+    const rides = trips.map((trip) => ({
+      id: trip.id,
+      date: trip.createdAt,
+      origin: trip.origin,
+      destination: trip.destination,
+      distance: trip.distance,
+      duration: trip.duration,
+      driver: {
+        id: trip.driverId,
+        name: trip.driverName,
+      },
+      value: trip.value,
+    }));
+
+
+    return res.status(200).json({
+      customer_id,
+      rides,
+    });
   }
 }
 export { RideController };
-
-// return res.status(404).json({
-//   error_code: "INVALID_DRIVER",
-//   error_description: "Driver ID is invalid",
-// });
