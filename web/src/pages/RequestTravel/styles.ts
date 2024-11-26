@@ -2,7 +2,7 @@ import styled from 'styled-components'
 
 export const Container = styled.div`
    margin: auto;
-   width: 75rem;
+   width: 80rem;
 
    h2 {
       font-family: ${({ theme }) => theme.FONT.FONT_STAATLICHES};

@@ -13,13 +13,13 @@ export const Container = styled.footer<{ display?: string }>`
 
   padding: 5.2rem 7rem 5.2rem 7rem;
 
-  width: 75rem;
+  width: 80rem;
 
   button {
     background: #FF5374;
     border-radius: 20px;
     text-transform: uppercase;
-    display: ${({display}) => display ? display : ''};
+    display: ${({ display }) => display ? display : ''};
 
     height: 5.5rem;
 

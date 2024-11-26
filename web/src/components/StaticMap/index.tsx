@@ -1,10 +1,10 @@
 import { Container } from "./styles"
 
 type StaticMapProps = {
-  latitudeA: number,
-  longitudeA: number,
-  latitudeB: number,
-  longitudeB: number
+  latitudeA: number | undefined,
+  longitudeA: number | undefined,
+  latitudeB: number | undefined,
+  longitudeB: number | undefined
 }
 
 export function StaticMap({latitudeA, longitudeA, latitudeB, longitudeB}: StaticMapProps) {

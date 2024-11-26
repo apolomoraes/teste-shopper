@@ -16,15 +16,15 @@ export default createGlobalStyle`
   }
 
   body::before {
-  content: '';
-  width: 100%;
-  height: 436px;
-  background: ${({ theme }) => theme.COLORS.BACKGROUND_200};
+    content: '';
+    width: 100%;
+    height: 43.6rem;
+    background: ${({ theme }) => theme.COLORS.BACKGROUND_200};
 
-  position: absolute;
-  top: 0;
-  left: 0;
-  z-index: -1;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -1;
   }
 
   a{

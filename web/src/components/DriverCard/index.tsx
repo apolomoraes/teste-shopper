@@ -5,7 +5,7 @@ interface DriverCardProps {
   description: string;
   vehicle: string;
   rating: number;
-  price: string;
+  price: number;
 }
 export function DriverCard({title, description, vehicle, rating, price}: DriverCardProps) {
   return (
@@ -14,7 +14,10 @@ export function DriverCard({title, description, vehicle, rating, price}: DriverC
       <p>{description}</p>
       <p>{vehicle}</p>
       <p>{`${rating}/5`}</p>
-      <p>{price}</p>
+      <p>{(price).toLocaleString('pt-BR', {
+            style: 'currency',
+            currency: 'BRL',
+          })}</p>
 
       <button>Escolher</button>
     </Container>

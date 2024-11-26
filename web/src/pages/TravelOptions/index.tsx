@@ -5,20 +5,35 @@ import { Footer } from "../../components/Footer";
 import { Container } from "./styles";
 import { DriverCard } from "../../components/DriverCard";
 import { Title } from "../../components/Title";
+import { useTravel } from "../../hooks/travel";
 
 export function TravelOptions () {
+  const { data } = useTravel();
+
   return (
     <Container>
       <Header title="Taxi App" description="Escolha a melhor opção de viagem para você"/>
 
       <Content>
         <Title title="Mapa estático com a rota"/>
-        <StaticMap latitudeA={-22.9068576} longitudeA={-43.172936199999995} latitudeB={-20.688644800000002} longitudeB={-41.847632499999996}/>
+        <StaticMap latitudeA={data?.origin.latitude} longitudeA={data?.origin.longitude} latitudeB={data?.destination.latitude} longitudeB={data?.destination.longitude}/>
 
+        {
+          data?.options &&
         <Title title="Opções de motoristas"/>
-        <DriverCard title="Motorista 1" description="Motorista 1" vehicle="Carro" rating={4} price="R$ 100,00"/>
-        <DriverCard title="Motorista 1" description="Motorista 1" vehicle="Carro" rating={4} price="R$ 100,00"/>
-        <DriverCard title="Motorista 1" description="Motorista 1" vehicle="Carro" rating={4} price="R$ 100,00"/>
+        }
+        {
+          data?.options.map(option => (
+            <DriverCard
+            key={option.id} 
+            title={option.name}
+            description={option.description}
+            vehicle={option.vehicle}	
+            rating={option.review.rating} 
+            price={option.value}
+            />
+          ))
+        }
       </Content>
 
       <Footer display="none"/>
