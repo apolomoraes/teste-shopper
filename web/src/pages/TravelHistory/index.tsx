@@ -12,6 +12,7 @@ import { useState } from "react";
 import { api } from "../../services/api";
 import { ApiError } from "../../types/apiError";
 import { ListTrips } from "../../types/listTrips";
+import { toast } from "react-toastify"
 
 export function TravelHistory() {
   const [customerId, setCustomerId] = useState("");
@@ -20,7 +21,7 @@ export function TravelHistory() {
 
   async function handleListTrips() {
     if(!customerId) {
-      return alert("Preencha o campo ID");
+      return toast.warn("Preencha o campo ID");
     }
 
     try {
@@ -32,9 +33,9 @@ export function TravelHistory() {
       const apiError = error.response.data as ApiError;
 
       if(apiError) {
-        return alert(apiError.error_description);
+        return toast.error(apiError.error_description);
       } else {
-        return alert("Ocorreu um erro ao listar as viagens, tente novamente mais tarde");
+        return toast.error("Ocorreu um erro ao listar as viagens, tente novamente mais tarde");
       }
     }
   }

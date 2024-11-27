@@ -12,6 +12,8 @@ import { useEffect, useState } from "react";
 import { api } from "../../services/api";
 import { useNavigate } from "react-router-dom";
 import { ApiError } from "../../types/apiError";
+import { toast } from "react-toastify"
+
 
 export function TravelOptions () {
   const { data } = useTravel();
@@ -40,15 +42,15 @@ export function TravelOptions () {
 
       localStorage.removeItem("@taxiapp:travelData");
 
-      alert("Viagem confirmada com sucesso!");
+      toast.success("Viagem confirmada com sucesso!");
       navigation("/history");
     } catch (error : any) {
       const apiError = error.response.data as ApiError;
 
       if(apiError) {
-        return alert(apiError.error_description);
+        return toast.error(apiError.error_description);
       } else {
-        return alert("Ocorreu um erro ao estimar o valor da viagem, tente novamente mais tarde");
+        return toast.error("Ocorreu um erro ao estimar o valor da viagem, tente novamente mais tarde");
       }
     }
   }
