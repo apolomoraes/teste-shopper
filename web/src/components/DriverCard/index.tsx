@@ -6,20 +6,27 @@ interface DriverCardProps {
   vehicle: string;
   rating: number;
   price: number;
+  onClick: () => void;
 }
-export function DriverCard({title, description, vehicle, rating, price}: DriverCardProps) {
+export function DriverCard({title, description, vehicle, rating, price, onClick}: DriverCardProps) {
   return (
     <Container>
-      <h3>{title}</h3>
-      <p>{description}</p>
+      <div>
+        <div>
+          <h3>{title}</h3>
+          <p>{`${rating}/5`}</p>
+        </div>
+        <p>{description}</p>
+      </div>
       <p>{vehicle}</p>
-      <p>{`${rating}/5`}</p>
-      <p>{(price).toLocaleString('pt-BR', {
+
+      <div>
+        <button onClick={onClick}>Escolher</button>
+        <p>{(price).toLocaleString('pt-BR', {
             style: 'currency',
             currency: 'BRL',
           })}</p>
-
-      <button>Escolher</button>
+      </div>
     </Container>
   )
 }

@@ -1,22 +1,20 @@
+import { ListTrips } from "../../types/listTrips";
 import { Container } from "./styles";
+import dayjs from "dayjs";
+import utc from "dayjs/plugin/utc";
+import timezone from "dayjs/plugin/timezone";
 
-interface TravelListCard {
-  travelDate: string;
-  driver: string;
-  origin: string;
-  destination: string;
-  distance: number;
-  duration: string;
-  value: number;
-}
-export function TravelListCard({travelDate, driver, origin, destination, distance, duration, value}: TravelListCard) {
+dayjs.extend(utc);
+dayjs.extend(timezone);
+
+export function TravelListCard({data}: {data: ListTrips | null}) {
   return (
     <Container>
       <table>
         <thead>
           <tr>
           <th>Data e Hora</th>
-          <th>motorista</th>
+          <th>Motorista</th>
           <th>Origem da viagem</th>
           <th>Destino da viagem</th>
           <th>Distância</th>
@@ -25,15 +23,19 @@ export function TravelListCard({travelDate, driver, origin, destination, distanc
           </tr>
         </thead>
         <tbody>
-          <tr>
-          <td>{travelDate}</td>
-          <td>{driver}</td>
-          <td>{origin}</td>
-          <td>{destination}</td>
-          <td>{distance}</td>
-          <td>{duration}</td>
-          <td>{value}</td>
-          </tr>
+          {
+            data?.rides.map((ride) => (
+              <tr key={ride.id}>
+                <td>{dayjs(ride.date).tz('America/Sao_Paulo').format('DD/MM/YYYY HH:mm:ss')}</td>
+                <td>{ride.driver.name}</td>
+                <td>{ride.origin}</td>
+                <td>{ride.destination}</td>
+                <td>{ride.distance}</td>
+                <td>{ride.duration}</td>
+                <td>{ride.value}</td>
+              </tr>
+            ))
+          }
         </tbody>
       </table>
     </Container>

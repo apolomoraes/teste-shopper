@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Input } from "../../components/Input"
 import { Footer } from "../../components/Footer"
 import { Container } from "./styles"
@@ -9,6 +10,7 @@ import { api } from "../../services/api"
 import { useTravel } from "../../hooks/travel"
 import { TravelData } from "../../types/travel"
 import { useNavigate } from "react-router-dom"
+import { ApiError } from "../../types/apiError"
 
 export function RequestTravel () {
   const [id, setId] = useState("");
@@ -33,10 +35,17 @@ export function RequestTravel () {
 
       setData(response.data);
 
+      localStorage.setItem("@taxiapp:travelData", JSON.stringify({id, origin, destination}));
+
       navigate("/options");
-    } catch (error) {
-      return alert(error);
-      console.log(error);
+    } catch (error : any) {
+      const apiError = error.response.data as ApiError;
+
+      if(apiError) {
+        return alert(apiError.error_description);
+      } else {
+        return alert("Ocorreu um erro ao estimar o valor da viagem, tente novamente mais tarde");
+      }
     }
   }
 
@@ -55,13 +64,13 @@ export function RequestTravel () {
           />
           <Input 
           id="origin" 
-          title="Origem" 
+          title="Cidade de origem" 
           required
           onChange={e => setOrigin(e.target.value)}
           />
           <Input 
           id="destination" 
-          title="Destino" 
+          title="Cidade de destino" 
           required
           onChange={e => setDestination(e.target.value)}
           />
