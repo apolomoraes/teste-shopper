@@ -1,7 +1,8 @@
 import dotenv from "dotenv";
 import { api } from "./api";
+import path from "path";
 
-dotenv.config();
+dotenv.config({ path: path.resolve(__dirname, '../../../.env') });
 
 const key = process.env.GOOGLE_API_KEY;
 
