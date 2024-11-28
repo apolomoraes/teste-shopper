@@ -8,6 +8,16 @@ dayjs.extend(utc);
 dayjs.extend(timezone);
 
 export function TravelListCard({data}: {data: ListTrips | null}) {
+  function formatDuration(duration: string): string {
+    const durationInSeconds = parseInt(duration.replace('s', ''), 10);
+
+    const hours = Math.floor(durationInSeconds / 3600);
+    const minutes = Math.floor((durationInSeconds % 3600) / 60);
+    const seconds = durationInSeconds % 60;
+
+    return `${hours}h ${minutes}m ${seconds}s`;
+  }
+
   return (
     <Container>
       <table>
@@ -30,9 +40,12 @@ export function TravelListCard({data}: {data: ListTrips | null}) {
                 <td>{ride.driver.name}</td>
                 <td>{ride.origin}</td>
                 <td>{ride.destination}</td>
-                <td>{ride.distance}</td>
-                <td>{ride.duration}</td>
-                <td>{ride.value}</td>
+                <td>{`${ride.distance} Km`}</td>
+                <td>{formatDuration(ride.duration)}</td>
+                <td>{(Number(ride.value)).toLocaleString('pt-BR', {
+                style: 'currency',
+                currency: 'BRL',
+              })}</td>
               </tr>
             ))
           }
